@@ -43,7 +43,6 @@ import org.slf4j.Logger;
 public class CustomUrlSender extends FileSender {
     private static String name = "URL";
     private static String customLoggingUrl;
-    private static String httpMethod;
     private static String httpHeaders;
     private static String basicAuthUsername;
     private static String basicAuthPassword;
@@ -61,7 +60,6 @@ public class CustomUrlSender extends FileSender {
 
         final ArrayList<File> filesToSend = new ArrayList<>();
         this.customLoggingUrl = this.preferenceHelper.getAutoSendCustomURLPath();
-        this.httpMethod = this.preferenceHelper.getAutoSendCustomURLMethod();
         this.httpHeaders = this.preferenceHelper.getAutoSendCustomURLHeaders();
         this.basicAuthUsername = this.preferenceHelper.getAutoSendCustomURLUsername();
         this.basicAuthPassword = this.preferenceHelper.getAutoSendCustomURLPassword();
@@ -78,7 +76,7 @@ public class CustomUrlSender extends FileSender {
     @Override
     public boolean isAvailable() {
 
-        return isValid( preferenceHelper.getAutoSendCustomURLPath(), preferenceHelper.getAutoSendCustomURLMethod());
+        return isValid( preferenceHelper.getAutoSendCustomURLPath());
     }
 
     @Override
@@ -93,8 +91,8 @@ public class CustomUrlSender extends FileSender {
         return true;
     }
 
-    public boolean isValid(String url, String method) {
-                return !Strings.isNullOrEmpty(url) && !Strings.isNullOrEmpty(method);
+    public boolean isValid(String url) {
+                return !Strings.isNullOrEmpty(url) ;
 
     }
 }
