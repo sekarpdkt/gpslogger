@@ -58,6 +58,11 @@
             android:title="@string/gpslogger_folder_title"
             android:summary="@string/gpslogger_folder_summary" />
 
+        <Preference
+            android:key="clean_folder"
+            android:title="@string/clean_folder_title"
+            android:summary="@string/clean_folder_summary" />
+      
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:key="new_file_creation"
             android:title="@string/new_file_creation_title"
