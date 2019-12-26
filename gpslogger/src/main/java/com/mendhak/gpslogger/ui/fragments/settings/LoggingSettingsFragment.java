@@ -101,6 +101,7 @@ public class LoggingSettingsFragment extends PreferenceFragment
         }
 
 
+        findPreference("clean_folder").setOnPreferenceClickListener(this);
         findPreference("new_file_custom_name").setOnPreferenceClickListener(this);
         findPreference("log_customurl_enabled").setOnPreferenceChangeListener(this);
         findPreference("log_opengts").setOnPreferenceChangeListener(this);
@@ -139,7 +140,20 @@ public class LoggingSettingsFragment extends PreferenceFragment
                     .show();
 
         }
+        
+        if (preference.getKey().equals("clean_folder")) {
+            Uri selectedUri = Uri.parse(preferenceHelper.getGpsLoggerFolder());//Environment.getExternalStorageDirectory() + "/myFolder/");        
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(selectedUri, "resource/folder");
 
+            if (intent.resolveActivityInfo(getActivity().getPackageManager(), 0) != null)
+            {
+                startActivity(intent);
+            }
+
+            return true;
+        }
+        
         return false;
     }
 
