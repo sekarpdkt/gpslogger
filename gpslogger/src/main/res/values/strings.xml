@@ -467,7 +467,8 @@
     </string>
     <string name="current_user_defined_dialog_title">Enter your activity value</string>
     <string name="current_user_defined_activity_hint">Max 16 char. Do not include special chars</string>
-    <string name="pref_autocustomurl_url_title">Auto logging to custom URL</string>
+    <string name="pref_customurl_url_log_title">Auto logging to custom URL</string>
+    <string name="pref_autocustomurl_url_title">Auto file upload to custom URL</string>
     <string name="autocustomerurl_enabled_title">Upload file to custom URL</string>
     <string name="autocustomerurl_enabled_summary">Enable or disable auto upload of recorded data to a custom URL.</string>
     <string name="autocustomurl_http_headers">Header for file upload thru custom URL</string>
