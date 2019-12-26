@@ -30,6 +30,7 @@ import com.mendhak.gpslogger.senders.opengts.OpenGTSManager;
 import com.mendhak.gpslogger.senders.osm.OpenStreetMapManager;
 import com.mendhak.gpslogger.senders.owncloud.OwnCloudManager;
 import com.mendhak.gpslogger.senders.sftp.SFTPManager;
+import com.mendhak.gpslogger.senders.customurl.CustomUrlSender;
 import org.slf4j.Logger;
 
 import java.io.File;
@@ -58,7 +59,11 @@ public class FileSenderFactory {
     public static FileSender getEmailSender() {
         return new AutoEmailManager(PreferenceHelper.getInstance());
     }
-
+    
+    public static FileSender getCustomURLSender() {
+        return new CustomUrlSender(PreferenceHelper.getInstance());
+    }
+    
     public static FileSender getOpenGTSSender() {
         return new OpenGTSManager(PreferenceHelper.getInstance());
     }
@@ -174,7 +179,11 @@ public class FileSenderFactory {
         if(getSFTPSender().isAutoSendAvailable()){
             senders.add(getSFTPSender());
         }
-
+        
+        if(getCustomURLSender().isAutoSendAvailable()){
+            senders.add(getCustomURLSender());
+        }
+        
         return senders;
 
     }
