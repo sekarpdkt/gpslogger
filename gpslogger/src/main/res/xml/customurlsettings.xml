@@ -36,9 +36,36 @@
     <Preference
         android:key="log_customurl_basicauth"
         android:title="Basic Authentication"/>
+    
+    <PreferenceCategory
+        android:title="@string/pref_autocustomurl_url_title"
+        >
 
+        <com.mendhak.gpslogger.ui.components.CustomSwitchPreference
+            android:key="autocustomerurl_enabled"
+            android:summary="@string/autocustomerurl_enabled_summary"
+            android:title="@string/autocustomerurl_enabled_title"/>
+        <EditTextPreference
+            android:key="autocustomurl_url_path"
+            android:singleLine="true"
+            android:title="URL" />
+        <EditTextPreference
+            android:key="autocustomurl_headers"
+            android:selectAllOnFocus="true"
+            android:singleLine="false"
+            android:defaultValue=""
+            android:hint="Content-Type: application/json\nAuthorization: Basic abcdefg\nApiToken: 12345"
+            android:title="@string/autocustomurl_http_headers" />
+        <Preference
+            android:key="autocustomurl_basicauth"
+            android:title="Basic Authentication"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_sslvalidation_title"
+        >
     <Preference android:key="customurl_validatecustomsslcert"
                 android:title="@string/ssl_certificate_validate" />
+    </PreferenceCategory>
 
 
 </PreferenceScreen>
