@@ -29,6 +29,7 @@ public  class PreferenceNames {
     public static final String ABSOLUTE_TIMEOUT = "absolute_timeout";
     public static final String START_LOGGING_ON_APP_LAUNCH = "startonapplaunch";
     public static final String START_LOGGING_ON_BOOTUP = "startonbootup";
+    public static final String CURRENT_UD_ACTIVITY = "current_user_defined_activity";
     public static final String LOG_TO_KML = "log_kml";
     public static final String LOG_TO_GPX = "log_gpx";
     public static final String LOG_AS_GPX_11 = "log_gpx_11";
@@ -54,6 +55,13 @@ public  class PreferenceNames {
     public static final String AUTOSEND_ENABLED = "autosend_enabled";
     public static final String AUTOSEND_FREQUENCY = "autosend_frequency_minutes";
     public static final String AUTOSEND_ON_STOP = "autosend_frequency_whenstoppressed";
+    
+    public static final String AUTOSEND_CUSTOMURL_ENABLED = "autocustomerurl_enabled";
+    public static final String AUTOSEND_CUSTOMURL_PATH = "autocustomurl_url_path";
+    public static final String AUTOSEND_CUSTOMURL_HEADERS = "autocustomurl_headers";
+    public static final String AUTOSEND_CUSTOMURL_BASICAUTH_USERNAME = "autocustomurl_basicauth_username";
+    public static final String AUTOSEND_CUSTOMURL_BASICAUTH_PASSWORD = "autocustomurl_basicauth_password";
+    
     public static final String AUTOSEND_EMAIL_ENABLED = "autoemail_enabled";
     public static final String AUTOSEND_ZIP = "autosend_sendzip";
     public static final String AUTOSEND_OPENGTS_ENABLED = "autoopengts_enabled";
