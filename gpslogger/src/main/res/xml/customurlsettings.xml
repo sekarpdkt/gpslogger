@@ -2,41 +2,48 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:key="customurl_preferences">
+    <PreferenceCategory
+        android:title="@string/pref_customurl_url_log_title"
+        >
+        <com.mendhak.gpslogger.ui.components.CustomSwitchPreference
+            android:key="log_customurl_enabled"
+            android:summary="@string/log_customurl_summary"
+            android:title="@string/log_customurl_title"/>
+        <EditTextPreference
+            android:key="log_customurl_url"
+            android:singleLine="true"
+            android:title="URL" />
 
-    <EditTextPreference
-        android:key="log_customurl_url"
-        android:singleLine="true"
-        android:title="URL" />
+        <Preference
+            android:key="customurl_legend_1"
+            android:enabled="true"
+            android:title="@string/parameters"
+            android:summary="" />
 
-    <Preference
-        android:key="customurl_legend_1"
-        android:enabled="true"
-        android:title="@string/parameters"
-        android:summary="" />
+        <EditTextPreference
+            android:key="log_customurl_body"
+            android:selectAllOnFocus="true"
+            android:singleLine="false"
+            android:defaultValue="lat=%LAT&amp;lon=%LON"
+            android:title="@string/customurl_http_body" />
+        <EditTextPreference
+            android:key="log_customurl_headers"
+            android:selectAllOnFocus="true"
+            android:singleLine="false"
+            android:defaultValue=""
+            android:hint="Content-Type: application/json\nAuthorization: Basic abcdefg\nApiToken: 12345"
+            android:title="@string/customurl_http_headers" />
+        <EditTextPreference
+            android:defaultValue="GET"
+            android:key="log_customurl_method"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/customurl_http_method" />
+        <Preference
+            android:key="log_customurl_basicauth"
+            android:title="Basic Authentication"/>
+    </PreferenceCategory>
 
-    <EditTextPreference
-        android:key="log_customurl_body"
-        android:selectAllOnFocus="true"
-        android:singleLine="false"
-        android:defaultValue="lat=%LAT&amp;lon=%LON"
-        android:title="@string/customurl_http_body" />
-    <EditTextPreference
-        android:key="log_customurl_headers"
-        android:selectAllOnFocus="true"
-        android:singleLine="false"
-        android:defaultValue=""
-        android:hint="Content-Type: application/json\nAuthorization: Basic abcdefg\nApiToken: 12345"
-        android:title="@string/customurl_http_headers" />
-    <EditTextPreference
-        android:defaultValue="GET"
-        android:key="log_customurl_method"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:title="@string/customurl_http_method" />
-    <Preference
-        android:key="log_customurl_basicauth"
-        android:title="Basic Authentication"/>
-    
     <PreferenceCategory
         android:title="@string/pref_autocustomurl_url_title"
         >
