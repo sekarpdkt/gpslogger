@@ -85,8 +85,36 @@ public class PreferenceHelper {
         prefs.edit().putString(PreferenceNames.DROPBOX_ACCESS_SECRET, secret).apply();
     }
 
+    /**
+     * Whether automatic sending to customer url is enabled
+     */
+    @ProfilePreference(name= PreferenceNames.AUTOSEND_CUSTOMURL_ENABLED)
+    public boolean isCustomURLAutoSendEnabled() {
+        return prefs.getBoolean(PreferenceNames.AUTOSEND_CUSTOMURL_ENABLED, false);
+    }
 
-
+    @ProfilePreference(name= PreferenceNames.AUTOSEND_CUSTOMURL_PATH)
+    public String getAutoSendCustomURLPath() {
+        return prefs.getString(PreferenceNames.AUTOSEND_CUSTOMURL_PATH, "http://localhost/data/");
+    }
+    @ProfilePreference(name= PreferenceNames.AUTOSEND_CUSTOMURL_HEADERS)
+    public String getAutoSendCustomURLHeaders() {
+        return prefs.getString(PreferenceNames.AUTOSEND_CUSTOMURL_HEADERS, "");
+    }
+    @ProfilePreference(name= PreferenceNames.AUTOSEND_CUSTOMURL_BASICAUTH_USERNAME)
+    public String getAutoSendCustomURLUsername() {
+        return prefs.getString(PreferenceNames.AUTOSEND_CUSTOMURL_BASICAUTH_USERNAME, "");
+    }
+    public void setAutoSendCustomURLUsername(String username) {
+        prefs.edit().putString(PreferenceNames.AUTOSEND_CUSTOMURL_BASICAUTH_USERNAME, username).apply();
+    }
+    @ProfilePreference(name= PreferenceNames.AUTOSEND_CUSTOMURL_BASICAUTH_PASSWORD)
+    public String getAutoSendCustomURLPassword() {
+        return prefs.getString(PreferenceNames.AUTOSEND_CUSTOMURL_BASICAUTH_PASSWORD, "");
+    }
+    public void setAutoSendCustomURLPassword(String username) {
+        prefs.edit().putString(PreferenceNames.AUTOSEND_CUSTOMURL_BASICAUTH_PASSWORD, username).apply();
+    }
 
     /**
      * Whether automatic sending to email is enabled
@@ -336,7 +364,18 @@ public class PreferenceHelper {
         prefs.edit().putString(PreferenceNames.GOOGLEDRIVE_ACCOUNTNAME, accountName).apply();
     }
 
-
+    /**
+     * User defined activity, which will be added in plain text logging
+     */
+    @ProfilePreference(name= PreferenceNames.CURRENT_UD_ACTIVITY)
+    public String getCurrentUserDefinedActivity() {
+        return prefs.getString(PreferenceNames.CURRENT_UD_ACTIVITY, "");
+    }
+        
+    public void setCurrentUserDefinedActivity(String val) {
+        prefs.edit().putString(PreferenceNames.CURRENT_UD_ACTIVITY, val).apply();
+    }
+    
     /**
      * The minimum seconds interval between logging points
      */
