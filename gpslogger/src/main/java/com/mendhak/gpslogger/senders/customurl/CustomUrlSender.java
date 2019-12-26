@@ -30,7 +30,6 @@ import com.birbit.android.jobqueue.TagConstraint;
 import com.mendhak.gpslogger.common.PreferenceHelper;
 import com.mendhak.gpslogger.common.Strings;
 import com.mendhak.gpslogger.senders.FileSender;
-import cz.msebera.android.httpclient.Header;
 import com.mendhak.gpslogger.common.slf4j.Logs;
 
 import java.io.File;
