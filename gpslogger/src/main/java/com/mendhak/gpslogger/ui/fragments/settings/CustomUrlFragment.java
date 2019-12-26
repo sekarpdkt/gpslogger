@@ -70,6 +70,7 @@ public class CustomUrlFragment extends PreferenceFragment implements
         findPreference("customurl_legend_1").setOnPreferenceClickListener(this);
         findPreference("customurl_validatecustomsslcert").setOnPreferenceClickListener(this);
         findPreference("log_customurl_basicauth").setOnPreferenceClickListener(this);
+        findPreference("autocustomurl_basicauth").setOnPreferenceClickListener(this);
 
         registerEventBus();
 
@@ -163,7 +164,44 @@ public class CustomUrlFragment extends PreferenceFragment implements
             alertDialog.show();
             return true;
         }
+        else if(preference.getKey().equals("autocustomurl_basicauth")){
+            MaterialDialog alertDialog = new MaterialDialog.Builder(getActivity())
+                    .title(R.string.customurl_http_basicauthentication)
+                    .customView(R.layout.customurl_basicauthview, true)
 
+                    .autoDismiss(false)
+                    .negativeText(R.string.cancel)
+                    .positiveText(R.string.ok)
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                            String basicAuthUsername = ((EditText)materialDialog.getView().findViewById(R.id.basicauth_username)).getText().toString();
+                            PreferenceHelper.getInstance().setAutoSendCustomURLUsername(basicAuthUsername);
+
+                            String basicAuthPassword = ((EditText)materialDialog.getView().findViewById(R.id.basicauth_pwd)).getText().toString();
+                            PreferenceHelper.getInstance().setAutoSendCustomURLPassword(basicAuthPassword);
+
+                            materialDialog.dismiss();
+                        }
+                    })
+                    .onNegative(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                            materialDialog.dismiss();
+                        }
+                    })
+                    .build();
+
+
+            final AppCompatEditText bauthUsernameText = (AppCompatEditText) alertDialog.getCustomView().findViewById(R.id.basicauth_username);
+            bauthUsernameText.setText(PreferenceHelper.getInstance().getAutoSendCustomURLUsername());
+            final AppCompatEditText bauthPwdText = (AppCompatEditText) alertDialog.getCustomView().findViewById(R.id.basicauth_pwd);
+            bauthPwdText.setText(PreferenceHelper.getInstance().getAutoSendCustomURLPassword());
+
+            alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+            alertDialog.show();
+            return true;
+        }
         return false;
     }
 
