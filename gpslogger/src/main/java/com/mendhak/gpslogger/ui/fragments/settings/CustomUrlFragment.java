@@ -66,6 +66,11 @@ public class CustomUrlFragment extends PreferenceFragment implements
         urlPathPreference.setSummary(PreferenceHelper.getInstance().getCustomLoggingUrl());
         urlPathPreference.setText(PreferenceHelper.getInstance().getCustomLoggingUrl());
         urlPathPreference.setOnPreferenceChangeListener(this);
+        
+        EditTextPreference urlUploadPathPreference = (EditTextPreference)findPreference(PreferenceNames.AUTOSEND_CUSTOMURL_PATH);
+        urlUploadPathPreference.setSummary(PreferenceHelper.getInstance().getAutoSendCustomURLPath());
+        urlUploadPathPreference.setText(PreferenceHelper.getInstance().getAutoSendCustomURLPath());
+        urlUploadPathPreference.setOnPreferenceChangeListener(this);
 
         findPreference("customurl_legend_1").setOnPreferenceClickListener(this);
         findPreference("customurl_validatecustomsslcert").setOnPreferenceClickListener(this);
@@ -83,6 +88,9 @@ public class CustomUrlFragment extends PreferenceFragment implements
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if(preference.getKey().equals(PreferenceNames.LOG_TO_URL_PATH)){
+            preference.setSummary(newValue.toString());
+        }
+        if(preference.getKey().equals(PreferenceNames.AUTOSEND_CUSTOMURL_PATH)){
             preference.setSummary(newValue.toString());
         }
         return true;
