@@ -473,4 +473,6 @@
     <string name="autocustomerurl_enabled_summary">Enable or disable auto upload of recorded data to a custom URL.</string>
     <string name="autocustomurl_http_headers">Header for file upload thru custom URL</string>
     <string name="pref_sslvalidation_title">SSL Valdation</string>
+    <string name="clean_folder_title">Clean files in folder</string>
+    <string name="clean_folder_summary">Open storage folder in standard file manager to clean the local files</string>
 </resources>
