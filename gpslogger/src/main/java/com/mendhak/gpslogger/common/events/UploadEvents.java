@@ -87,7 +87,9 @@ public class UploadEvents {
 
 
     public static class CustomUrl extends BaseUploadEvent {}
-
+    
+    public static class AutoCustomUrl extends BaseUploadEvent {}
+    
     public static class Dropbox extends BaseUploadEvent {}
 
     public static class Ftp extends BaseUploadEvent {
