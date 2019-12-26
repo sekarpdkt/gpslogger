@@ -70,6 +70,8 @@ public class Files {
                 return "application/vnd.google-earth.kml+xml";
             } else if (extension.equalsIgnoreCase("zip")) {
                 return "application/zip";
+            }else if (extension.equalsIgnoreCase("csv")) {
+                return "text/csv";
             }
         }
 
