@@ -796,7 +796,7 @@ public class GpsLoggingService extends Service  {
 
         boolean isPassiveLocation = loc.getExtras().getBoolean(BundleConstants.PASSIVE);
         long currentTimeStamp = System.currentTimeMillis();
-        double distanceTraveled;
+        double distanceTravelled=0.0;
 
         LOG.debug("Has description? " + session.hasDescription() + ", Single point? " + session.isSinglePointMode() + ", Last timestamp: " + session.getLatestTimeStamp());
         
@@ -821,7 +821,7 @@ public class GpsLoggingService extends Service  {
         }
         //Calculate distance travelled
         if (session.hasValidLocation()) {
-                distanceTraveled = Maths.calculateDistance(loc.getLatitude(), loc.getLongitude(),
+                distanceTravelled = Maths.calculateDistance(loc.getLatitude(), loc.getLongitude(),
                     session.getCurrentLatitude(), session.getCurrentLongitude());
         }
         
@@ -843,7 +843,7 @@ public class GpsLoggingService extends Service  {
         // If the distance travelled is > recording limit, we shall record this location. 
 
         if (!isPassiveLocation && !session.hasDescription() && !session.isSinglePointMode() && (currentTimeStamp - session.getLatestTimeStamp()) < (preferenceHelper.getMinimumLoggingInterval() * 1000)) {
-            if(distanceTraveled < preferenceHelper.getMinimumDistanceInterval()) {
+            if(distanceTravelled < preferenceHelper.getMinimumDistanceInterval()) {
                 return;
             }
         }
@@ -899,11 +899,10 @@ public class GpsLoggingService extends Service  {
         // However, if it's a passive location, ignore distance filter.
         if (!isPassiveLocation && !session.hasDescription() && !session.isSinglePointMode() && preferenceHelper.getMinimumDistanceInterval() > 0 && session.hasValidLocation()) {
 
-            double distanceTraveled = Maths.calculateDistance(loc.getLatitude(), loc.getLongitude(),
-                    session.getCurrentLatitude(), session.getCurrentLongitude());
 
-            if (preferenceHelper.getMinimumDistanceInterval() > distanceTraveled) {
-                LOG.warn(String.format(getString(R.string.not_enough_distance_traveled), String.valueOf(Math.floor(distanceTraveled))) + ", point discarded");
+
+            if (preferenceHelper.getMinimumDistanceInterval() > distanceTravelled) {
+                LOG.warn(String.format(getString(R.string.not_enough_distance_traveled), String.valueOf(Math.floor(distanceTravelled))) + ", point discarded");
                 stopManagerAndResetAlarm();
                 return;
             }
