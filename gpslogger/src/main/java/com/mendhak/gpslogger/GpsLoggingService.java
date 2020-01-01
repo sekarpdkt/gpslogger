@@ -796,14 +796,56 @@ public class GpsLoggingService extends Service  {
 
         boolean isPassiveLocation = loc.getExtras().getBoolean(BundleConstants.PASSIVE);
         long currentTimeStamp = System.currentTimeMillis();
+        double distanceTraveled;
 
         LOG.debug("Has description? " + session.hasDescription() + ", Single point? " + session.isSinglePointMode() + ", Last timestamp: " + session.getLatestTimeStamp());
+        
+        //Ignore network provided location until timeout set (accept_network_loc_after) is elapsed.
+        //This will ensure network location getting logged instead of GPS as Network also claims better accuracy
+        //Whether to log it for singlePoint? Currently no as we will attempt to get GPS location
+        if (loc.getProvider() !="gps"){
+            int acceptNetworkLocAfter=preferenceHelper.getAcceptNetworkLocAfter();
+            if((currentTimeStamp - session.getLatestTimeStamp()) < (acceptNetworkLocAfter * 1000)) {
+                return;
+            }
+            else{
+                if(acceptNetworkLocAfter>0){
+                    LOG.warn(String.format("Allowing  %s reading to be recorded as GPS reading is not available for %d sec - discarding point", loc.getProvider(), acceptNetworkLocAfter));
+                }
+                    
+                /*
+                * @TODO:As we have not received GPS signal, we might be inside a building. 
+                * Can we reduce polling cycle to save battery life?
+                */
+            }
+        }
+        //Calculate distance travelled
+        if (session.hasValidLocation()) {
+                distanceTraveled = Maths.calculateDistance(loc.getLatitude(), loc.getLongitude(),
+                    session.getCurrentLatitude(), session.getCurrentLongitude());
+        }
+        
+        //Moved ridiculous distance validation up befor timeout validation
+        //Check if a ridiculous distance has been travelled since previous point - could be a bad GPS jump
+        //Also added another prefernce to configure speedlimit
+        if(session.getCurrentLocationInfo() != null){
+            long timeDifference = (int)Math.abs(loc.getTime() - session.getCurrentLocationInfo().getTime())/1000;
+
+            if( timeDifference > 0 && (distanceTravelled/timeDifference) > Math.abs(preferenceHelper.getSpeedLimit())){ //357 m/s ~=  1285 km/h
+                LOG.warn(String.format("Very large jump detected - %d meters in %d sec - discarding point", (long)distanceTravelled, timeDifference));
+                return;
+            }
+        }
 
         // Don't log a point until the user-defined time has elapsed
         // However, if user has set an annotation, just log the point, disregard time and distance filters
         // However, if it's a passive location, disregard the time filter
+        // If the distance travelled is > recording limit, we shall record this location. 
+
         if (!isPassiveLocation && !session.hasDescription() && !session.isSinglePointMode() && (currentTimeStamp - session.getLatestTimeStamp()) < (preferenceHelper.getMinimumLoggingInterval() * 1000)) {
-            return;
+            if(distanceTraveled < preferenceHelper.getMinimumDistanceInterval()) {
+                return;
+            }
         }
 
         //Don't log a point if user has been still
@@ -815,17 +857,6 @@ public class GpsLoggingService extends Service  {
 
         if(!isPassiveLocation && !isFromValidListener(loc)){
             return;
-        }
-
-        //Check if a ridiculous distance has been travelled since previous point - could be a bad GPS jump
-        if(session.getCurrentLocationInfo() != null){
-            double distanceTravelled = Maths.calculateDistance(loc.getLatitude(), loc.getLongitude(), session.getCurrentLocationInfo().getLatitude(), session.getCurrentLocationInfo().getLongitude());
-            long timeDifference = (int)Math.abs(loc.getTime() - session.getCurrentLocationInfo().getTime())/1000;
-
-            if( timeDifference > 0 && (distanceTravelled/timeDifference) > 357){ //357 m/s ~=  1285 km/h
-                LOG.warn(String.format("Very large jump detected - %d meters in %d sec - discarding point", (long)distanceTravelled, timeDifference));
-                return;
-            }
         }
 
         // Don't do anything until the user-defined accuracy is reached
