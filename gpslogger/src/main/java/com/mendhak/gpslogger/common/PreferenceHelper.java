@@ -85,6 +85,25 @@ public class PreferenceHelper {
         prefs.edit().putString(PreferenceNames.DROPBOX_ACCESS_SECRET, secret).apply();
     }
 
+    
+    /**
+     * Speed limit to detect spurios GPS signals.
+     * Actual setting is km/hr. By dividing it by 3.6, we are sending meters per sec.
+     */
+    @ProfilePreference(name= PreferenceNames.SPEED_LIMIT_KM_PER_SEC)
+    public int getSpeedLimit() {
+        int x=Strings.toInt(prefs.getString(PreferenceNames.SPEED_LIMIT_KM_PER_SEC, "1285"), 1285);
+        final int floor = (int) Math.floor(x / 3.6);
+        return floor;
+    }
+    /**
+     * Sometimes network location accuracy is reported very high. We will wait for GPS till the below time out.
+     */
+    @ProfilePreference(name= PreferenceNames.ACCEPT_NETWORK_LOC_AFTER)
+    public int getAcceptNetworkLocAfter() {
+        return (Strings.toInt(prefs.getString(PreferenceNames.ACCEPT_NETWORK_LOC_AFTER, "0"), 0));
+    }     
+    
     /**
      * Whether automatic sending to customer url is enabled
      */
