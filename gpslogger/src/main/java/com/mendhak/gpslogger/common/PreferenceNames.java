@@ -21,6 +21,8 @@ package com.mendhak.gpslogger.common;
 
 
 public  class PreferenceNames {
+    public static final String ACCEPT_NETWORK_LOC_AFTER ="accept_network_loc_after";
+    public static final String SPEED_LIMIT_KM_PER_SEC ="speed_limit_km_per_sec";
     public static final String MINIMUM_INTERVAL ="time_before_logging";
     public static final String MINIMUM_DISTANCE = "distance_before_logging";
     public static final String MINIMUM_ACCURACY = "accuracy_before_logging";
